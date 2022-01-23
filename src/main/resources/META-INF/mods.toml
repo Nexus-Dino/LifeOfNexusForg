@@ -1,0 +1,28 @@
+modLoader="javafml" 
+loaderVersion="[39,)"
+license="MIT"
+
+[[mods]] 
+modId="lifeofnexus" 
+version="1.0.0-1.18.1" 
+displayName="LifeOfNexus!" 
+logoFile="logo.png" 
+credits="Thanks for this mod to myself" 
+authors="NexusDino" 
+description='''
+	The life of me, very sad :(
+'''
+
+[[dependencies.lifeofnexus]] 
+    modId="forge" 
+    mandatory=true 
+    versionRange="[39,)" 
+    ordering="NONE"
+    side="BOTH"
+    
+[[dependencies.lifeofnexus]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.1,1.19)"
+    ordering="NONE"
+    side="BOTH"

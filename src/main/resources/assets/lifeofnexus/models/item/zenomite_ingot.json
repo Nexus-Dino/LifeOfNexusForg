@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "lifeofnexus:items/zenomite_ingot"
+	}
+}
