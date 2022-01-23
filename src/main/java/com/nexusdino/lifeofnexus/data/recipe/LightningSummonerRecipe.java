@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.nexusdino.lifeofnexus.LifeOfNexus;
 import com.nexusdino.lifeofnexus.core.util.ILightningSummonerRecipe;
 
 import net.minecraft.core.NonNullList;
@@ -14,6 +15,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -25,6 +27,14 @@ public class LightningSummonerRecipe implements ILightningSummonerRecipe {
 
 		public static Weather getWeatherByString(String s) {
 			return Objects.equals(s, "thundering") ? THUNDERING : Objects.equals(s, "rain") ? RAIN : CLEAR;
+		}
+	}
+	
+	public static class Type implements RecipeType<LightningSummonerRecipe> {
+		
+		@Override
+		public String toString() {
+			return LifeOfNexus.MOD_ID + ":lightning_summoner_recipe";
 		}
 	}
 
@@ -44,9 +54,8 @@ public class LightningSummonerRecipe implements ILightningSummonerRecipe {
 	@Override
 	public boolean matches(Container inv, Level worldIn) {
 		// Checks for correct focus (Glass Pane)
-		if (recipeItems.get(0).test(inv.getItem(0))) {
+		if (recipeItems.get(0).test(inv.getItem(0)))
 			return recipeItems.get(1).test(inv.getItem(1));
-		}
 
 		return false;
 	}
@@ -74,7 +83,7 @@ public class LightningSummonerRecipe implements ILightningSummonerRecipe {
 	public ResourceLocation getId() {
 		return id;
 	}
-	
+
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return new Serializer();
@@ -86,40 +95,38 @@ public class LightningSummonerRecipe implements ILightningSummonerRecipe {
 		@Override
 		public LightningSummonerRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-            String weather = GsonHelper.getAsString(json, "weather");
+			String weather = GsonHelper.getAsString(json, "weather");
 
-            JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
+			JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
+			NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
 
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
-            }
+			for (int i = 0; i < inputs.size(); i++) {
+				inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
+			}
 
-            return new LightningSummonerRecipe(recipeId, output,
-                    inputs, Weather.getWeatherByString(weather));
+			return new LightningSummonerRecipe(recipeId, output, inputs, Weather.getWeatherByString(weather));
 		}
 
 		@Override
 		public LightningSummonerRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf buffer) {
 			NonNullList<Ingredient> inputs = NonNullList.withSize(buffer.readInt(), Ingredient.EMPTY);
 
-            for (int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(buffer));
-            }
+			for (int i = 0; i < inputs.size(); i++) {
+				inputs.set(i, Ingredient.fromNetwork(buffer));
+			}
 
-            ItemStack output = buffer.readItem();
-            return new LightningSummonerRecipe(pRecipeId, output,
-                    inputs, buffer.readEnum(Weather.class));
+			ItemStack output = buffer.readItem();
+			return new LightningSummonerRecipe(pRecipeId, output, inputs, buffer.readEnum(Weather.class));
 		}
 
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, LightningSummonerRecipe recipe) {
 			buffer.writeInt(recipe.getIngredients().size());
-            for (Ingredient ing : recipe.getIngredients()) {
-                ing.toNetwork(buffer);
-            }
-            buffer.writeItemStack(recipe.getResultItem(), false);
-            buffer.writeEnum(recipe.weather);
+			for (Ingredient ing : recipe.getIngredients()) {
+				ing.toNetwork(buffer);
+			}
+			buffer.writeItemStack(recipe.getResultItem(), false);
+			buffer.writeEnum(recipe.weather);
 		}
 
 	}

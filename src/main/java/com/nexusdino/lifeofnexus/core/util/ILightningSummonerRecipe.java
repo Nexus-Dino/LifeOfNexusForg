@@ -1,7 +1,5 @@
 package com.nexusdino.lifeofnexus.core.util;
 
-import java.util.Optional;
-
 import com.nexusdino.lifeofnexus.LifeOfNexus;
 
 import net.minecraft.core.Registry;
@@ -15,10 +13,7 @@ public interface ILightningSummonerRecipe extends Recipe<Container> {
 
 	@Override
 	default RecipeType<?> getType() {
-		if (Optional.of(TYPE_ID).isPresent())
-			return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
-		else
-			return null;
+		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
 	@Override

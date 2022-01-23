@@ -5,18 +5,19 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 
 import com.nexusdino.lifeofnexus.core.init.BlockEntityTypesInit;
+import com.nexusdino.lifeofnexus.core.init.RecipeInit;
 import com.nexusdino.lifeofnexus.data.recipe.LightningSummonerRecipe;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.level.SimpleContainer;
-import net.minecraft.level.entity.EntityType;
-import net.minecraft.level.entity.MobSpawnType;
-import net.minecraft.level.item.ItemStack;
-import net.minecraft.level.level.block.entity.BlockEntity;
-import net.minecraft.level.level.block.state.BlockState;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -41,7 +42,7 @@ public class LightningSummonerBlockEntity extends BlockEntity {
 	@SuppressWarnings({"resource", "unused"})
 	private void strikeLightning() {
 		if (!this.getLevel().isClientSide)
-			EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level, null, null, levelPosition, MobSpawnType.TRIGGERED,
+			EntityType.LIGHTNING_BOLT.spawn((ServerLevel) level, null, null, worldPosition, MobSpawnType.TRIGGERED,
 					true, true);
 	}
 
@@ -58,29 +59,27 @@ public class LightningSummonerBlockEntity extends BlockEntity {
 		}
 
         Optional<LightningSummonerRecipe> recipe = level.getRecipeManager()
-                .getRecipe(ModRecipeTypes.LIGHTNING_RECIPE, inv, level);
+                .getRecipeFor(RecipeInit.LIGHTNING_RECIPE, inv, level);
 
-        recipe.ifPresent(iRecipe -> {
-            ItemStack output = iRecipe.getResultItem();
+        recipe.ifPresent(lightningRecipe -> {
+            ItemStack output = lightningRecipe.getResultItem();
 
-            if(iRecipe.getWeather().equals(LightningSummonerRecipe.Weather.CLEAR) &&
+            if(lightningRecipe.getWeather().equals(LightningSummonerRecipe.Weather.CLEAR) &&
                     !level.isRaining()) {
                 craftTheItem(output);
             }
 
-            if(iRecipe.getWeather().equals(LightningSummonerRecipe.Weather.RAIN) &&
+            if(lightningRecipe.getWeather().equals(LightningSummonerRecipe.Weather.RAIN) &&
                     level.isRaining()) {
                 craftTheItem(output);
             }
 
-            if(iRecipe.getWeather().equals(LightningSummonerRecipe.Weather.THUNDERING) &&
+            if(lightningRecipe.getWeather().equals(LightningSummonerRecipe.Weather.THUNDERING) &&
                     level.isThundering()) {
                 strikeLightning();
                 craftTheItem(output);
             }
-
-		setChanged();
-
+        });
 	}
 
 	protected void craftTheItem(ItemStack output) {
