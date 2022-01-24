@@ -19,7 +19,7 @@ public class BlockInit {
 			LifeOfNexus.MOD_ID);
 
 	public static final RegistryObject<Block> SCYTHONITE_ORE = register("scythonite_ore",
-			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)));
+			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE).requiresCorrectToolForDrops()));
 
 	private static <I extends Block> RegistryObject<I> register(String name, Supplier<? extends I> sup) {
 		RegistryObject<I> toReturn = BLOCKS.register(name, sup);
