@@ -1,15 +1,5 @@
-//package com.nexusdino.lifeofnexus.core.init;
-//
-//import com.nexusdino.lifeofnexus.LifeOfNexus;
-//import com.nexusdino.lifeofnexus.common.entity.Oryx;
-//
-//import net.minecraft.resources.ResourceLocation;
-//import net.minecraft.world.entity.EntityType;
-//import net.minecraft.world.entity.MobCategory;
-//import net.minecraftforge.registries.DeferredRegister;
-//import net.minecraftforge.registries.ForgeRegistries;
-//import net.minecraftforge.registries.RegistryObject;
-//
+package com.nexusdino.lifeofnexus.core.init;
+
 //public class EntityTypesInit {
 //	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
 //			LifeOfNexus.MOD_ID);

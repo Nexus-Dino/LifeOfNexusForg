@@ -18,10 +18,10 @@ public class BlockInit {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
 			LifeOfNexus.MOD_ID);
 
-	public static final RegistryObject<Block> SCYTHONITE_ORE = register("scythonite_ore",
+	public static final RegistryObject<Block> SCYTHONITE_ORE = registerBlock("scythonite_ore",
 			() -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE).requiresCorrectToolForDrops()));
 
-	private static <I extends Block> RegistryObject<I> register(String name, Supplier<? extends I> sup) {
+	private static <I extends Block> RegistryObject<I> registerBlock(String name, Supplier<? extends I> sup) {
 		RegistryObject<I> toReturn = BLOCKS.register(name, sup);
 		registerBlockItem(name, toReturn);
 		return toReturn;

@@ -1,5 +1,10 @@
 {
 	"item.lifeofnexus.scythonite_ingot": "Scythonite Ingot",
+	"item.lifeofnexus.scythonite_sword": "Scythonite Sword",
+	"item.lifeofnexus.scythonite_pickaxe": "Scythonite Pickaxe",
+	"item.lifeofnexus.scythonite_axe": "Scythonite Axe",
+	"item.lifeofnexus.scythonite_shovel": "Scythonite Shovel",
+	
 	"block.lifeofnexus.scythonite_ore": "Scythonite Ore",
 	
 	"itemGroup.lifeofnexus": "LifeOfNexus!"
