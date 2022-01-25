@@ -4,9 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nexusdino.lifeofnexus.core.init.BlockInit;
-import com.nexusdino.lifeofnexus.core.init.ConfiguredFeatureInit;
 import com.nexusdino.lifeofnexus.core.init.ItemInit;
-import com.nexusdino.lifeofnexus.core.init.PlacementsInit;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -27,8 +25,6 @@ public class LifeOfNexus {
 		BlockInit.BLOCKS.register(bus);
 		ItemInit.ITEMS.register(bus);
 
-		ConfiguredFeatureInit.register();
-		PlacementsInit.register();
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
