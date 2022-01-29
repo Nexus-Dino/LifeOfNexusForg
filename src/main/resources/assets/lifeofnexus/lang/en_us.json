@@ -8,6 +8,8 @@
 	"item.lifeofnexus.scythonite_helmet": "Scythonite Helmet",
 	
 	"block.lifeofnexus.scythonite_ore": "Scythonite Ore",
+	"block.lifeofnexus.scythonite_block": "Scythonite Block",
+	"block.lifeofnexus.possessed_netheroscythe": "Netheroscythe Ore",
 	
 	"itemGroup.lifeofnexus": "LifeOfNexus!"
 }

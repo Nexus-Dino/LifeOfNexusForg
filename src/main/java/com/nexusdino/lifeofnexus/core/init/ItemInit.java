@@ -22,11 +22,11 @@ public class ItemInit {
 			LifeOfNexus.MOD_ID);
 
 	public static final RegistryObject<Item> SCYTHONITE_INGOT = ITEMS.register("scythonite_ingot",
-			() -> new Item(new Item.Properties().tab(LifeOfNexus.TAB_ITEMS).fireResistant()));
+			() -> new Item(new Item.Properties().tab(LifeOfNexus.TAB_MAIN).fireResistant()));
 
 	public static final RegistryObject<Item> SCYTHONITE_PICKAXE = ITEMS.register("scythonite_pickaxe",
 			() -> new PickaxeItem(LONTiers.SCYTHONITE, 5, 8f,
-					new Item.Properties().tab(LifeOfNexus.TAB_ITEMS).fireResistant()));
+					new Item.Properties().tab(LifeOfNexus.TAB_MAIN).fireResistant()));
 
 	public static final RegistryObject<Item> SCYTHONITE_AXE = ITEMS.register("scythonite_axe",
 			() -> new AxeItem(LONTiers.SCYTHONITE, 10, 8f,
@@ -38,11 +38,11 @@ public class ItemInit {
 
 	public static final RegistryObject<Item> SCYTHONITE_SHOVEL = ITEMS.register("scythonite_shovel",
 			() -> new ShovelItem(LONTiers.SCYTHONITE, 3, 8f,
-					new Item.Properties().tab(LifeOfNexus.TAB_ITEMS).fireResistant()));
+					new Item.Properties().tab(LifeOfNexus.TAB_MAIN).fireResistant()));
 
 	public static final RegistryObject<Item> SCYTHONITE_HOE = ITEMS.register("scythonite_hoe",
 			() -> new HoeItem(LONTiers.SCYTHONITE, 2, 8f,
-					new Item.Properties().tab(LifeOfNexus.TAB_ITEMS).fireResistant()));
+					new Item.Properties().tab(LifeOfNexus.TAB_MAIN).fireResistant()));
 
 	public static final RegistryObject<Item> SCYTHONITE_HELMET = ITEMS.register("scythonite_helmet",
 			() -> new ArmorItem(LONArmorMaterials.SCYTHONITE, EquipmentSlot.HEAD,

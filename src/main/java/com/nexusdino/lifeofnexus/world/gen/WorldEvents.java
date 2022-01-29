@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import com.nexusdino.lifeofnexus.LifeOfNexus;
-import com.nexusdino.lifeofnexus.core.init.OreGenInit;
 
-import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -19,11 +18,13 @@ public class WorldEvents {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void loadOres(BiomeLoadingEvent event) {
-		List<Supplier<PlacedFeature>> base = event.getGeneration().getFeatures(Decoration.UNDERGROUND_ORES);
+		List<Supplier<PlacedFeature>> base = event.getGeneration()
+				.getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES);
 
-		OreGenInit.registerOres();
-		
-		if ("minecraft:warm_ocean".equals(event.getName().getNamespace()))
-			OreGenInit.OVERWORLD_ORES.forEach(ore -> base.add(() -> ore));
+		switch (event.getCategory()) {
+		case THEEND -> LifeOfNexus.END_ORES.forEach(ore -> base.add(() -> ore));
+		case NETHER -> LifeOfNexus.NETHER_ORES.forEach(ore -> base.add(() -> ore));
+		default -> LifeOfNexus.OVERWORLD_ORES.forEach(ore -> base.add(() -> ore));
+		}
 	}
 }
